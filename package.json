@@ -1,0 +1,12 @@
+{
+    "name": "api-for-shopify",
+    "description": "thing I need to do for shopify",
+    "authors": "Matt",
+    "version": "0.1.0",
+    "main": "pathToMain",
+    "dependencies": {
+        "body-parser": "^1.18.3",
+        "express": "~4.16.0",
+        "request": "2.88.0"
+    }
+}
