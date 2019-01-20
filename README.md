@@ -11,7 +11,11 @@ all endpoints begin with `/api/:apikey`
 the getall endpoint is `/getall`
 getall sends a response of all products in the database the param instock can be added with a value of 1 to get only the products in stock
 ### get
-the get end point is `/get/:item`
+the get endpoint is `/get/:item`
 get sends a response of the item you asked for and if the item does not exists a 400 response will be sent instead
+### purchase
+the purchase endpoint is `/purchase/:item`
+purchase checks to see if the item is in stock and if it is decreases the stock by one
+
 
 

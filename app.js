@@ -58,7 +58,7 @@ app.get('/api/:apikey/get/:item', function (req,res)
         else
         {
             res.status(400);
-            res.send("<h1>400 Bad Request</h1>Error: item does not exist")
+            res.send("<h1>400 Bad Request</h1>Error: Item does not exist")
 
         }
     }
@@ -91,7 +91,7 @@ app.post('/api/:apikey/purchase/:item', function (req,res)
         }
         else
         {
-           res.send("nope");
+           res.send("<h1>Bad Request</h1>Error: Item does not exist");
         }
     }
 })
