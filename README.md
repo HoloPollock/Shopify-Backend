@@ -1,5 +1,6 @@
 # Shopify-Backend
 This is the code I wrote for the shopify backend devoloper codeing challange
+if this where to be deployed an endpoint that would be run on close would be added to empty cart however this did not seem requried for this demo
 ## Database
 The database currently is just a json file named `db.json` 
 this is json stucted where the `title` of the item is the key of the dictionary item that contains two items `price` and `inventory_count`
@@ -22,6 +23,5 @@ This is how you add items to car cart before purchaising this currently only has
 ### purchase
 the purchase endpoint is `/purchase/
 the purchases end point "purchases" everything in the cart if there are multiple items in the cart and one cant be purchased the purchase it stoped and that item is removed from the carts
-
 
 
