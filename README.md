@@ -21,7 +21,7 @@ this gets all the items currently in your cart
 this endpoint is `/addtocart/:items`
 This is how you add items to car cart before purchaising this currently only has one cart but bould be expanded by adding unique identifiers per cars
 ### purchase
-the purchase endpoint is `/purchase/
+the purchase endpoint is `/purchase`
 the purchases end point "purchases" everything in the cart if there are multiple items in the cart and one cant be purchased the purchase it stoped and that item is removed from the carts
 
 
