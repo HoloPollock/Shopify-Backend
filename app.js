@@ -1,3 +1,4 @@
+//imports
 var express = require('express');
 var bodyParser = require('body-parser');
 var fs = require('fs');
@@ -6,21 +7,22 @@ const apikey = "thisissecure"
 var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
-app.get('/api/:apikey/getall', function (req,res) 
+app.get('/api/:apikey/getall', function (req,res) //endpoint getall full docstring in README
 {
     var key = req.params.apikey;
     if (key != apikey)
     {
-        res.status(403);
+        res.status(403); //Sets response status to 403
         res.send("<h1>403 Forbidden </h1>Request denied: BAD API KEY");
     }
     else
     {
         var db = readdb()
-        if (req.query.instock == 1)
+        if (req.query.instock == 1) //this if statement send all items with inventory > 0
         {
             var new_json = {};
-            for(var item in db['inventory']) {
+            for(var item in db['inventory']) 
+            {
                 if (db.inventory[item].inventory_count > 0) 
                 {
                     new_json[item] = db.inventory[item];
@@ -29,7 +31,7 @@ app.get('/api/:apikey/getall', function (req,res)
             res.setHeader('Content-Type', 'application/json');
             res.send(JSON.stringify(new_json));
         }
-        else 
+        else // reposnd with all items
         {
             var db = readdb();
             res.setHeader('Content-Type', 'application/json');
@@ -37,8 +39,7 @@ app.get('/api/:apikey/getall', function (req,res)
         }
     }
 });
-
-app.get('/api/:apikey/get/:item', function (req,res) 
+app.get('/api/:apikey/get/:item', function (req,res) //endpoint to get specfic item
 {
     var key = req.params.apikey;
     if (key != apikey) 
@@ -82,7 +83,7 @@ app.get('/api/:apikey/getcart', function (req,res) {
 })
 
 app.post('/api/:apikey/addtocart/:item', function (req,res) {
-    item = req.params.item;
+    item = req.params.item; // gets item param from url
     db = readdb();
     if(db.inventory.hasOwnProperty(item))
     {
@@ -96,7 +97,6 @@ app.post('/api/:apikey/addtocart/:item', function (req,res) {
             }
             else
             {
-                console.log("hello");
                 cart = {};
                 cart['quantity'] = 1;
                 db.cart[item] = cart;
@@ -110,7 +110,7 @@ app.post('/api/:apikey/addtocart/:item', function (req,res) {
         }
 
     }
-    else
+    else // if tem asked for didn't exist
     {
         res.status(400)
         res.send("<h1>400 Bad Request</h1>Error: Item does not exist")
@@ -124,7 +124,7 @@ app.post('/api/:apikey/purchase', function (req,res)
 {
     var key = req.params.apikey;
     var canbuy = true;
-    var not_enough = [];
+    var not_enough = []; // list for if items did not have enough inventory
     if (key != apikey)
     {
         res.status(403);
@@ -170,12 +170,10 @@ app.post('/api/:apikey/purchase', function (req,res)
         }
         else
         {
-            res.status(400);
-            res.send("<h1>400 Bad Request</h1>Error: Item does not exist");
+            res.send("No items in cart");
         }
     }
 })
-
 app.listen(3000);
 
 function readdb() 
@@ -197,6 +195,7 @@ function updatedb(json)
     
 }
 
-function isEmpty(obj) {
+function isEmpty(obj) 
+{
     return !Object.keys(obj).length;
-  }
+}
