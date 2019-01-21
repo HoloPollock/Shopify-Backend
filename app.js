@@ -123,7 +123,7 @@ app.post('/api/:apikey/purchase', function (req,res)
         {
             for (var item in db.cart)
             {
-                if (db.inventory[item].inventory_count-db.cart[item].quantity < 1)
+                if (db.inventory[item].inventory_count-db.cart[item].quantity < 0)
                 {
                     canbuy = false;
                     not_enough.push(item);
@@ -135,22 +135,29 @@ app.post('/api/:apikey/purchase', function (req,res)
                 for (item in db.cart)
                 {
                     db.inventory[item].inventory_count -= db.cart[item].quantity;
+                    delete db.cart[item];
+                    
                 }
+                updatedb(db);
+                res.send("Items Purchases");
             }
             else
             {
+                var error_string = "Items: "
                 for (var i in not_enough)
                 {
+                    error_string += not_enough[i] +" ";
                     delete db.cart[not_enough[i]];
-                    updatedb(db);
-                    res.send("some items where not able to be purchased as there was not enoguh inventory thye have been removed from your cart")//fix
                 }
+                error_string += "do not have enough inventory they have been removed from your cart";
+                updatedb(db);
+                res.send(error_string);
             }
         }
         else
         {
             res.status(400);
-           res.send("<h1>400 Bad Request</h1>Error: Item does not exist");
+            res.send("<h1>400 Bad Request</h1>Error: Item does not exist");
         }
     }
 })
