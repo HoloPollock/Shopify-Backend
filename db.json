@@ -1,1 +1,1 @@
-{"inventory":{"shirt":{"price":12,"inventory_count":14},"pin":{"price":5,"inventory_count":2},"long_sleeve":{"price":7,"inventory_count":8}},"cart":{}}
+{"inventory":{"shirt":{"price":12,"inventory_count":14},"pin":{"price":5,"inventory_count":2},"long_sleeve":{"price":7,"inventory_count":8}},"cart":{"pin":{"quantity":2},"shirt":{"quantity":1}}}

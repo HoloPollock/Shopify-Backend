@@ -12,7 +12,7 @@ app.get('/api/:apikey/getall', function (req,res)
     if (key != apikey)
     {
         res.status(403);
-        res.send("<h1>403 Forbidden </h1>request denied: BAD API KEY");
+        res.send("<h1>403 Forbidden </h1>Request denied: BAD API KEY");
     }
     else
     {
@@ -44,7 +44,7 @@ app.get('/api/:apikey/get/:item', function (req,res)
     if (key != apikey) 
     {
         res.status(403);
-        res.send("<h1>403 Forbidden </h1>request denied: BAD API KEY");
+        res.send("<h1>403 Forbidden </h1>Request denied: BAD API KEY");
     }
     else 
     {
@@ -64,6 +64,22 @@ app.get('/api/:apikey/get/:item', function (req,res)
     }
     
 });
+
+app.get('/api/:apikey/getcart', function (req,res) {
+    var key = req.params.apikey;
+    if (key != apikey)
+    {
+        res.status(403);
+        res.send("<h1>403 Forbidden</h1>Request denied: Bad API KEY");
+    }
+    else 
+    {
+        var db = readdb();
+        res.setHeader('Content-Type', 'application/json');
+        res.send(JSON.stringify(db.cart));
+    }
+    
+})
 
 app.post('/api/:apikey/addtocart/:item', function (req,res) {
     item = req.params.item;
@@ -112,13 +128,11 @@ app.post('/api/:apikey/purchase', function (req,res)
     if (key != apikey)
     {
         res.status(403);
-        res.send("<h1>403 Forbidden </h1> request denied: BAD API KEY");
+        res.send("<h1>403 Forbidden </h1> Request denied: BAD API KEY");
     }
     else
     {
         var db = readdb();
-        //console.log(db.inventory);
-        //console.log(db.cart);
         if(!isEmpty(db.cart))
         {
             for (var item in db.cart)
